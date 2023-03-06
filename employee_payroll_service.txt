@@ -37,6 +37,77 @@ UC4-Retrieve all employee payroll data from employee payroll table
 +----+---------+---------+------------+
 3 rows in set (0.04 sec)
 
+UC1_Create_DataBase
 
+ create database Employee_Payroll_Service;
+Query OK, 1 row affected (0.19 sec)
+
+ show databases;
++--------------------------+
+| Database                 |
++--------------------------+
+| address_book_system      |
+| demo                     |
+| employee_payroll_service |
+| information_schema       |
+| mysql                    |
+| payroll_service          |
+| payroll_service_new      |
+| performance_schema       |
+| sys                      |
++--------------------------+
+9 rows in set (0.00 sec)
+
+UC2-Create employee payroll table in payroll service database
+
+create table employee_payroll_new(id int unsigned not null auto_increment, name varchar(30) not null, salary double not null, start_date date not null, primary key(id));
+Query OK, 0 rows affected (0.58 sec)
+desc employee_payroll_new;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int unsigned | NO   | PRI | NULL    | auto_increment |
+| name       | varchar(30)  | NO   |     | NULL    |                |
+| salary     | double       | NO   |     | NULL    |                |
+| start_date | date         | NO   |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+UC3-Create employee payroll data in payroll service database as part of CURD operation
+
+insert into employee_payroll_new(name,salary,start_date)values('Bill',1000000.00,'2010-10-30'),('Tersia',2000000.00,'2019-11-13'),('Charlie',300000.00,'2020-05-21');
+Query OK, 3 rows affected (0.17 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+UC4-Retrieve all employee payroll data from employee payroll table
+
+ select * from employee_payroll_new;
++----+---------+---------+------------+
+| id | name    | salary  | start_date |
++----+---------+---------+------------+
+|  1 | Bill    | 1000000 | 2010-10-30 |
+|  2 | Tersia  | 2000000 | 2019-11-13 |
+|  3 | Charlie |  300000 | 2020-05-21 |
++----+---------+---------+------------+
+3 rows in set (0.04 sec)
+
+UC5-Retrieve salary data for particular employee as wll as employees particular data range
+
+select salary from employee_payroll_new where name = 'Bill';
++---------+
+| salary  |
++---------+
+| 1000000 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select start_date from employee_payroll_new where start_date between cast('2018-01-01' as date) and date(now());
++------------+
+| start_date |
++------------+
+| 2019-11-13 |
+| 2020-05-21 |
++------------+
+2 rows in set (0.07 sec)
 
 
